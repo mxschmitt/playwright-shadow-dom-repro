@@ -8,9 +8,9 @@ test("shadow DOM doesn't work", async ({ page, context }) => {
 
   const selector = `body > div:nth-child(13) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > componentreference-components:nth-child(1) > componentreference-bundles:nth-child(1) > componentreference-tile-viewer:nth-child(1) > div:nth-child(1) > componentreference-tile:nth-child(82) > a:nth-child(1) > div:nth-child(1)`
   const elementFromQuerySelector = await page.evaluate((selector: string) => {
-    return (window as any).querySelectorShadowDom.querySelectorDeep(selector)
+    return (window as any).querySelectorShadowDom.querySelectorDeep(selector).tagName
   }, selector)
-  expect(elementFromQuerySelector).toBeDefined()
+  expect(elementFromQuerySelector).toEqual("DIV")
 
   await expect(page.locator(selector)).toBeAttached();
 });
